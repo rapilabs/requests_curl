@@ -28,7 +28,7 @@ def get_headers(headers):
 
 def request(method, url, **kwargs):
     response = originals['request'](method, url, **kwargs)
-    logger.debug('curl -X {} {} {}'.format(
+    logger.debug("curl -X {} {} '{}'".format(
         response.request.method,
         get_headers(response.request.headers),
         response.url
@@ -38,7 +38,7 @@ def request(method, url, **kwargs):
 
 def get(url, params=None, **kwargs):
     response = originals['get'](url, params=params, **kwargs)
-    logger.debug('curl -L {} {}'.format(
+    logger.debug("curl -L {} '{}'".format(
         get_headers(response.request.headers),
         response.url
     ))
@@ -47,7 +47,7 @@ def get(url, params=None, **kwargs):
 
 def options(url, **kwargs):
     response = originals['options'](url, **kwargs)
-    logger.debug('curl -L -X OPTIONS {} {}'.format(
+    logger.debug("curl -L -X OPTIONS {} '{}'".format(
         get_headers(response.request.headers),
         response.url
     ))
@@ -56,7 +56,7 @@ def options(url, **kwargs):
 
 def head(url, **kwargs):
     response = originals['head'](url, **kwargs)
-    logger.debug('curl -L -X HEAD {} {}'.format(
+    logger.debug("curl -L -X HEAD {} '{}'".format(
         get_headers(response.request.headers),
         response.url
     ))
@@ -72,7 +72,7 @@ def post(url, data=None, json=None, **kwargs):
     elif json:
         data_option = "--data '{}'".format(dumps(json))
 
-    logger.debug('curl -X POST {} {} {}'.format(
+    logger.debug("curl -X POST {} {} '{}'".format(
         data_option,
         get_headers(response.request.headers),
         response.url
@@ -87,7 +87,7 @@ def put(url, data=None, **kwargs):
     if data:
         data_option = "--data-urlencode '{}'".format(urllib.parse.urlencode(data))
 
-    logger.debug('curl -X PUT {} {} {}'.format(
+    logger.debug("curl -X PUT {} {} '{}'".format(
         data_option,
         get_headers(response.request.headers),
         response.url
@@ -102,7 +102,7 @@ def patch(url, data=None, **kwargs):
     if data:
         data_option = "--data-urlencode '{}'".format(urllib.parse.urlencode(data))
 
-    logger.debug('curl -X PATCH {} {} {}'.format(
+    logger.debug("curl -X PATCH {} {} '{}'".format(
         data_option,
         get_headers(response.request.headers),
         response.url
@@ -112,7 +112,7 @@ def patch(url, data=None, **kwargs):
 
 def delete(url, **kwargs):
     response = originals['delete'](url, **kwargs)
-    logger.debug('curl -X DELETE {} {}'.format(
+    logger.debug("curl -X DELETE {} '{}'".format(
         get_headers(response.request.headers),
         response.url
     ))
